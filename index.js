@@ -23,17 +23,27 @@ const swaggerOptions = {
                 url: `http://localhost:${PORT}`,
             },
         ],
+        components: {
+            securitySchemes: {
+                BearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT',
+                },
+            },
+        },
+        security: [
+            {
+                bearerAuth: [],
+            },
+        ]
     },
-    apis: ['./routes/router/*.js'],
+    apis: ['./controllers/*.js'],
 };
 
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
-console.log(swaggerSpec);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-app.get('/', (req, res) => {
-    res.send('Server is running...')
-})
 app.use('/v1/', require('./routes/router'))
 
 app.listen(PORT, () => {

@@ -20,6 +20,8 @@ module.exports = {
  *           type: integer
  *           minimum: 1
  *         description: Limit the number of results
+ *     security:
+ *      - BearerAuth: []
  *     responses:
  *       200:
  *         description: Successful response
